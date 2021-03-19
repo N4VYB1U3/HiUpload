@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\Plan;
 use Laravel\Cashier\Billable;
+use Laravel\Cashier\Subscription;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -46,5 +48,15 @@ class User extends Authenticatable
     public function files() 
     {
         return $this->hasMany(File::class);
+    }
+
+    public function plan()
+    {
+        return $this->hasOneThrough(
+            Plan::class, Subscription::class,
+            'user_id', 'stripe_id', 'id', 'stripe_plan'
+        )
+            ->whereNull('subscriptions.ends_at')
+            ->withDefault(Plan::free()->toArray());
     }
 }
