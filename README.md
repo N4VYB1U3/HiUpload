@@ -29,7 +29,7 @@ npm run serve
 
 ### Back-end
 ```bash
-php artian serve
+php artisan serve
 ```
 
 ## Contributing
