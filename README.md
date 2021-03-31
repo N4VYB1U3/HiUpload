@@ -4,20 +4,32 @@ HiUpload is a file upload SaaS that was made using Vue.js [Front-end] &amp; Lara
 
 ## Installation
 
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
+```bash
+npm i
+```
 
 ```bash
-pip install foobar
+composer install
+```
+
+```bash
+php artisan key:generate
+```
+
+```bash
+php artisan migrate
 ```
 
 ## Usage
 
-```python
-import foobar
+### Front-end
+```bash
+npm run serve
+```
 
-foobar.pluralize('word') # returns 'words'
-foobar.pluralize('goose') # returns 'geese'
-foobar.singularize('phenomena') # returns 'phenomenon'
+### Back-end
+```bash
+php artisan serve
 ```
 
 ## Contributing
