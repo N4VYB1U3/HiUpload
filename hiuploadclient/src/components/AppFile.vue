@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapMutations } from 'vuex'
 export default {
     props: {
         file: {
@@ -24,9 +24,16 @@ export default {
         ...mapActions({
             deleteFileAction: 'files/deleteFile'
         }),
-        deleteFile () {
+
+        ...mapMutations({
+            decrementUsage: "usage/DECREMENT_USAGE"
+        }),
+
+        async deleteFile () {
             if (window.confirm('Are you sure you want to delete this file?')) {
-                this.deleteFileAction(this.file.uuid)
+                await this.deleteFileAction(this.file.uuid)
+
+                this.decrementUsage(this.file.size)
             }
         }
     }

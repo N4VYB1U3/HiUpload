@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\Auth\UserController;
+use App\Http\Controllers\UserUsageController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 
@@ -18,6 +19,7 @@ use App\Http\Controllers\Auth\LogoutController;
 |
 */
 Route::get('/user', UserController::class);
+Route::get('/user/usage', UserUsageController::class);
 
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();

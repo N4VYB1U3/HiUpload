@@ -1,6 +1,7 @@
 import { createStore } from 'vuex'
 import auth from './auth'
 import files from './files'
+import usage from './usage'
 
 export default createStore({
   state: {
@@ -11,6 +12,7 @@ export default createStore({
   },
   modules: {
     auth,
-    files
+    files,
+    usage
   }
 })

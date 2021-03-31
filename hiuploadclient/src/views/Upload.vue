@@ -39,7 +39,8 @@ export default {
             getFiles: 'files/getFiles'
         }),
         ...mapMutations({
-            addFile: "files/ADD_FILE"
+            addFile: "files/ADD_FILE",
+            incrementUsage: "usage/INCREMENT_USAGE"
         }),
         async storeFile (file) {
             let response = await axios.post('/api/files', {
@@ -49,6 +50,7 @@ export default {
             })
 
             this.addFile(response.data.data)
+            this.incrementUsage(file.fileSize)
         }
     },
 

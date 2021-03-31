@@ -5,9 +5,13 @@
           <router-link :to="{ name: 'home' }" class="text-sm inline-block p-3 text-gray-800">Home</router-link>
         </li>
         <li>
-          <router-link :to="{ name: 'uploads' }" href="" class="text-sm inline-block p-3 text-gray-800">Your files</router-link>
+          <router-link :to="{ name: 'uploads' }" href="" v-if="authenticated" class="text-sm inline-block p-3 text-gray-800">Your files</router-link>
         </li>
       </ul>
+
+      <div class="flex justify-center order-last w-full md:w-auto md:order-none">
+        <app-usage v-if="authenticated"/>
+      </div>
 
       <ul class="flex items-center">
         <template v-if="!authenticated">
@@ -32,8 +36,10 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import AppUsage from '@/components/AppUsage'
 
 export default {
+  components: { AppUsage },
   computed: {
     ...mapGetters({
       authenticated: 'auth/authenticated',
