@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Plan;
 use App\Http\Resources\PlanResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -18,8 +19,9 @@ class UserResource extends JsonResource
         return [
             'name' => $this->name,
             'email' => $this->email,
+            'subscribed' => $this->subscribed('default'),
+            'ends_at' => optional(optional($this->subscription('default'))->ends_at)->toDateTimeString(),
             'plan' => new PlanResource($this->plan),
-            
         ];
     }
 }
