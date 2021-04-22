@@ -12,7 +12,7 @@
         </div>
         </div>
 
-        <button type="submit" class="bg-indigo-500 text-white px-4 py-3 leading-none rounded-lg font-medium">Login</button>
+        <app-button type="submit" title="Login" :loading="loading" :disabled="loading"/>
       </form>
       <p class="text-sm text-gray-800">Not joined yet? <a href="" class="text-indigo-500">Create an account</a></p>
     </div>
@@ -21,10 +21,16 @@
 <script>
 // @ is an alias to /src
 import { mapActions } from 'vuex'
+import AppButton from '@/components/AppButton'
 
 export default {
+  components: {
+    AppButton,
+  },
+
   data () {
     return {
+      loading: false,
       form: {
       email: '',
       password: '',
@@ -38,8 +44,18 @@ export default {
     }),
 
     async login () {
-      await this.loginAction(this.form)
-      this.$router.replace({ name: 'home' })
+      this.loading = true
+      try {
+        await this.loginAction(this.form)
+
+        this.loading = false
+        
+        this.$router.replace({ name: 'home' })
+      } catch (e) {
+        this.loading = false
+      }
+
+      
     }
   }
 }

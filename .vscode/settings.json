@@ -1,0 +1,22 @@
+{
+    "git.ignoreLimitWarning": true,
+    "git.showCommitInput": false,
+    "scm.diffDecorationsGutterAction": "none",
+    "scm.defaultViewMode": "tree",
+    "scm.countBadge": "off",
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "default"
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "test",
+            "username": "root",
+            "password": "root",
+            "database": "hiuploadapi"
+        }
+    ]
+}
