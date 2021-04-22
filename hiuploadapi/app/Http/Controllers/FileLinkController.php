@@ -8,9 +8,14 @@ use Illuminate\Http\Request;
 
 class FileLinkController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth:sanctum']);
+    }
+
     public function store(Request $request, File $file)
     {
-        //auth
+        $this->authorize('create-link', $file);
 
         $link = $file->links()->firstOrcreate([], [
             'token' => hash_hmac('sha256', Str::random(40), $file->uuid)
