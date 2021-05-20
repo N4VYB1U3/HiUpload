@@ -4,7 +4,7 @@ export default {
     namespaced: true,
 
     state: {
-        usag: 0
+        usage: 0
     },
 
     getters: {
