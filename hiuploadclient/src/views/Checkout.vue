@@ -51,7 +51,8 @@ export default {
 
     methods: {
         ...mapActions({
-            me: 'auth/me'
+            me: 'auth/me',
+            snack: 'snack/snack'
         }),
 
         async submit () {
@@ -78,6 +79,7 @@ export default {
             let response = await axios.post('api/subscriptions', { plan: this.plan, token })
             await this.me()
 
+            this.snack('Subscription created. Thank you!')
             this.$router.replace({ name: 'account' })
         }
     },

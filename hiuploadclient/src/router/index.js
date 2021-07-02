@@ -1,4 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import store from '@/store'
+
 import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Upload from '../views/Upload.vue'
@@ -7,6 +9,14 @@ import Checkout from '../views/Checkout.vue'
 import Account from '../views/Account.vue'
 import Swap from '../views/Swap.vue'
 import Download from '../views/Download.vue'
+import Register from '../views/Register.vue'
+import Landing from '../views/Landing'
+
+import middlewarePipeline from './middlewarePipeline'
+import auth from '@/middleware/auth'
+import subscribed from '@/middleware/subscribed'
+import guest from '@/middleware/guest'
+
 
 const routes = [
   {
@@ -17,12 +27,26 @@ const routes = [
   {
     path: '/login',
     name: 'login',
-    component: Login
+    component: Login,
+    meta: {
+      middleware: [guest]
+    }
+  },
+  {
+    path: '/register',
+    name: 'register',
+    component: Register,
+    meta: {
+      middleware: [guest]
+    }
   },
   {
     path: '/uploads',
     name: 'uploads',
-    component: Upload
+    component: Upload,
+    meta: {
+      middleware: [auth]
+    }
   },
   {
     path: '/plans',
@@ -33,17 +57,26 @@ const routes = [
     path: '/checkout',
     name: 'checkout',
     component: Checkout,
-    props: route => ({ plan: route.query.plan })
+    props: route => ({ plan: route.query.plan }),
+    meta: {
+      middleware: [auth]
+    }
   },
   {
     path: '/account',
     name: 'account',
-    component: Account
+    component: Account,
+    meta: {
+      middleware: [auth]
+    }
   },
   {
     path: '/swap',
     name: 'swap',
-    component: Swap
+    component: Swap,
+    meta: {
+      middleware: [auth, subscribed]
+    }
   },
   {
     path: '/download/:uuid',
@@ -57,5 +90,26 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
 })
+
+router.beforeEach((to, from, next) => {
+
+  if (!to.meta.middleware) {
+    return next();
+  }
+
+  const middleware = to.meta.middleware;
+
+  const context = {
+    to,
+    from,
+    store,
+    next
+  }
+
+  return middleware[0]({
+    ...context,
+    next: middlewarePipeline(context, middleware, 1)
+  });
+});
 
 export default router

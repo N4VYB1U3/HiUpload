@@ -4,13 +4,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\PlanController;
+use App\Http\Controllers\FileLinkController;
 use App\Http\Controllers\Auth\UserController;
 use App\Http\Controllers\UserUsageController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
-use App\Http\Controllers\FileLinkController;
 use App\Http\Controllers\StripeIntentController;
 use App\Http\Controllers\SubscriptionController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\UserPlanAvailabilityController;
 
 /*
@@ -29,6 +30,7 @@ Route::get('/user/usage', UserUsageController::class);
 Route::get('/user/plan_availability', UserPlanAvailabilityController::class);
 
 Route::post('/login', LoginController::class);
+Route::post('/register', RegisterController::class);
 Route::post('/logout', LogoutController::class);
 
 Route::post('/files/signed', [FileController::class, 'signed']);
